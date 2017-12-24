@@ -27,5 +27,12 @@ fi
 
 FONT="$4"
 
-ffmpeg -i $VIDEO -vf subtitles=$SUBTITLE:force_style=Fontsize="$SIZE":force_style=FontName="$FONT" out.avi || { echo 'ffmpeg failed' ; exit 1; }
+if [ -z "$5" ]; then
+   ffmpeg -i $VIDEO -vf subtitles=$SUBTITLE:force_style=Fontsize="$SIZE":force_style=FontName="$FONT" out.avi || { echo 'ffmpeg failed' ; exit 1; }
+   exit 0;
+fi
+
+COLOUR="$5"
+
+ffmpeg -i $VIDEO -vf subtitles=$SUBTITLE:force_style=Fontsize="$SIZE":force_style=FontName="$FONT":force_style=PrimaryColour="$COLOUR" out.avi || { echo 'ffmpeg failed' ; exit 1; }
 exit 0;
